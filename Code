@@ -1,0 +1,54 @@
+housing_data <- read.csv("C:/Users/MSI-NB/Downloads/Housing.csv")
+plot(housing_data$area, housing_data$price, main="Price vs Area", xlab="Area", ylab="Price")
+plot(housing_data$bedrooms, housing_data$price, main="Price vs bedrooms", xlab="bedrooms", ylab="Price")
+plot(housing_data$bathrooms, housing_data$price, main="Price vs bathrooms", xlab="bathrooms", ylab="Price")
+plot(housing_data$stories, housing_data$price, main="Price vs stories", xlab="stories", ylab="Price")
+plot(housing_data$parking, housing_data$price, main="Price vs parking", xlab="parking", ylab="Price")
+
+model = lm(price ~ area, data=housing_data)
+summary(model)
+model_residuals = model$residuals
+hist(model_residuals)
+
+model = lm(price ~ area+bedrooms+bathrooms+stories+parking, data=housing_data)
+summary(model)
+model_residuals = model$residuals
+hist(model_residuals)
+
+
+
+housing_data$airconditioning <- ifelse(housing_data$airconditioning == "yes", 1, 0)
+glm.fit = glm(airconditioning~price,data=housing_data,family=binomial())
+summary(glm.fit)
+glm.probs = predict(glm.fit,type="response")
+plot(housing_data$price, glm.probs, xlab = "Price", ylab = "Probability of Having Air Conditioning", main = "Predicted Probability of Having Air Conditioning vs. Price")
+
+housing_data$mainroad <- ifelse(housing_data$mainroad == "yes", 1, 0)
+glm.fit = glm(mainroad~price,data=housing_data,family=binomial())
+summary(glm.fit)
+glm.probs = predict(glm.fit,type="response")
+plot(housing_data$price, glm.probs, xlab = "Price", ylab = "Probability of mainroad", main = "Predicted Probability of mainroad vs. Price")
+
+housing_data$guestroom <- ifelse(housing_data$guestroom == "yes", 1, 0)
+glm.fit = glm(guestroom~price,data=housing_data,family=binomial())
+summary(glm.fit)
+glm.probs = predict(glm.fit,type="response")
+plot(housing_data$price, glm.probs, xlab = "Price", ylab = "Probability of guestroom", main = "Predicted Probability of guestroom vs. Price")
+
+housing_data$basement <- ifelse(housing_data$basement == "yes", 1, 0)
+glm.fit = glm(basement~price,data=housing_data,family=binomial())
+summary(glm.fit)
+glm.probs = predict(glm.fit,type="response")
+plot(housing_data$price, glm.probs, xlab = "Price", ylab = "Probability of basement", main = "Predicted Probability of basement vs. Price")
+
+housing_data$hotwaterheating <- ifelse(housing_data$hotwaterheating == "yes", 1, 0)
+glm.fit = glm(hotwaterheating~price,data=housing_data,family=binomial())
+summary(glm.fit)
+glm.probs = predict(glm.fit,type="response")
+plot(housing_data$price, glm.probs, xlab = "Price", ylab = "Probability of hotwaterheating", main = "Predicted Probability of hotwaterheating vs. Price")
+
+housing_data$prefarea <- ifelse(housing_data$prefarea == "yes", 1, 0)
+glm.fit = glm(prefarea~price,data=housing_data,family=binomial())
+summary(glm.fit)
+glm.probs = predict(glm.fit,type="response")
+plot(housing_data$price, glm.probs, xlab = "Price", ylab = "Probability of prefarea", main = "Predicted Probability of prefarea vs. Price")
